@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\NewsFetcher\NewYorkTimesFetcher;
+use App\NewsFetcher\NewsFetcher;
 use Illuminate\Console\Command;
 
 class FetchNews extends Command
@@ -22,9 +22,12 @@ class FetchNews extends Command
      */
     protected $description = 'Command description';
 
-    public function handle(NewYorkTimesFetcher $newsApiFetcher): void
+    /**
+     * @param iterable $newsFetchers $newsFetchers
+     * @return void
+     */
+    public function handle(NewsFetcher $newsFetcher): void
     {
-        $articles = $newsApiFetcher->fetchNewsAsync();
-        $articles->wait();
+        $newsFetcher->fetchNews();
     }
 }
