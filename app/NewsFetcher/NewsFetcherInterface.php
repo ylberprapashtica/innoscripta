@@ -7,9 +7,11 @@ use Illuminate\Http\Client\Response;
 
 interface NewsFetcherInterface
 {
+    public function getQuery(): string;
+
     public function fetchNews(): void;
 
     public function fetchNewsAsync(): PromiseInterface;
 
-    function handleResponse(Response $response): void;
+    public function handleResponse(Response $response): void;
 }

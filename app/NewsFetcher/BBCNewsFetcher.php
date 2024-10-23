@@ -50,11 +50,21 @@ class BBCNewsFetcher implements NewsFetcherInterface
      */
     public function fetchNews(): void
     {
-        $query = $this->createQuery('latest', [
+        $response = Http::get($this->getQuery());
+        $this->handleResponse($response);
+    }
+
+    /**
+     * @throws ParametersValidationFailException
+     * @throws EndpointIsNotRecognisedException
+     * @throws ApiUrlIsNotValidUrlException
+     * @throws ValidationException
+     */
+    public function getQuery(): string
+    {
+        return $this->createQuery('news', [
             'lang' => 'english'
         ]);
-        $response = Http::get($query);
-        $this->handleResponse($response);
     }
 
     /**
@@ -95,10 +105,7 @@ class BBCNewsFetcher implements NewsFetcherInterface
      */
     public function fetchNewsAsync(): PromiseInterface
     {
-        $query = $this->createQuery('news', [
-            'lang' => 'english'
-        ]);
-        return Http::async()->get($query)->then(function ($response) {
+        return Http::async()->get($this->getQuery())->then(function ($response) {
             $this->handleResponse($response);
         });
     }
