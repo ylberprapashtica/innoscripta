@@ -2,11 +2,14 @@
 
 namespace App\NewsFetcher;
 
-use Illuminate\Http\Response;
+use GuzzleHttp\Promise\PromiseInterface;
+use Illuminate\Http\Client\Response;
 
 interface NewsFetcherInterface
 {
-    public function fetchNews();
+    public function fetchNews(): void;
 
-    function handleResponse(Response $response);
+    public function fetchNewsAsync(): PromiseInterface;
+
+    function handleResponse(Response $response): void;
 }

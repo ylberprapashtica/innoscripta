@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\NewsFetcher\BBCNewsFetcher;
 use App\NewsFetcher\NewsApiFetcher;
 use Illuminate\Console\Command;
 
@@ -23,11 +22,9 @@ class FetchNews extends Command
      */
     protected $description = 'Command description';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle(BBCNewsFetcher $newsApiFetcher): void
+    public function handle(NewsApiFetcher $newsApiFetcher): void
     {
-        $articles = $newsApiFetcher->fetchNews();
+        $articles = $newsApiFetcher->fetchNewsAsync();
+        $articles->wait();
     }
 }
