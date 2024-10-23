@@ -13,51 +13,59 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::factory()->create([
-            'name' => 'war',
+            'name' => Category::WAR,
         ]);
 
         Category::factory()->create([
-            'name' => 'government',
+            'name' => Category::GOVERNMENT,
         ]);
 
         Category::factory()->create([
-            'name' => 'politics',
+            'name' => Category::POLITICS,
         ]);
 
         Category::factory()->create([
-            'name' => 'education',
+            'name' => Category::EDUCATION,
         ]);
 
         Category::factory()->create([
-            'name' => 'health',
+            'name' => Category::HEALTH,
         ]);
 
         Category::factory()->create([
-            'name' => 'economy',
+            'name' => Category::ECONOMY,
         ]);
 
         Category::factory()->create([
-            'name' => 'business',
+            'name' => Category::BUSINESS,
         ]);
 
         Category::factory()->create([
-            'name' => 'fashion',
+            'name' => Category::FASHION,
         ]);
 
         Category::factory()->create([
-            'name' => 'sport',
+            'name' => Category::SPORT,
         ]);
 
         Category::factory()->create([
-            'name' => 'entertainment',
+            'name' => Category::ENTERTAINMENT,
         ]);
 
         Category::factory()->create([
-            'name' => 'environment',
+            'name' => Category::ENVIRONMENT,
         ]);
 
         Category::factory()->create([
-            'name' => 'miscellaneous',
+            'name' => Category::TRAVEL,
+        ]);
+
+        Category::factory()->create([
+            'name' => Category::SCIENCE,
+        ]);
+
+        Category::factory()->create([
+            'name' => Category::MISCELLANEOUS,
         ]);
     }
 }

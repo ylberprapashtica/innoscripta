@@ -2,20 +2,56 @@
 
 namespace App\Models;
 
+use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    /** @use HasFactory<\Database\Factories\CategoryFactory> */
+    /** @use HasFactory<CategoryFactory> */
     use HasFactory;
 
+    const WAR = 'war';
+    const GOVERNMENT = 'government';
+    const POLITICS = 'politics';
+    const EDUCATION = 'education';
+    const HEALTH = 'health';
+    const ECONOMY = 'economy';
+    const BUSINESS = 'business';
+    const FASHION = 'fashion';
+    const SPORT = 'sport';
+    const ENTERTAINMENT = 'entertainment';
+    const ENVIRONMENT = 'environment';
+    const MISCELLANEOUS = 'miscellaneous';
+    const TRAVEL = 'travel';
+
+    const SCIENCE = 'science';
+    private static array $categories = [];
     protected $fillable = [
         'name'
     ];
 
-    public function comments(): HasMany
+    public static function getArticleId(?string $articleName): ?int
+    {
+        $id = array_search($articleName, self::getCategories());
+        return ($id) ?: null;
+    }
+
+    public static function getCategories()
+    {
+        if (empty(self::$categories)) {
+            $simplifiedArray = [];
+            foreach (self::query()->get() as $category) {
+                $simplifiedArray[$category->id] = $category->name;
+            }
+
+            self::$categories = $simplifiedArray;
+        }
+        return self::$categories;
+    }
+
+    public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
     }
