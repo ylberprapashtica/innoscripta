@@ -2,9 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    //
+    public function index(Request $request): JsonResponse
+    {
+        $request->validate([
+            'page' => 'required|int',
+            'per_page' => 'required|int',
+            'keyword' => 'string',
+            'before_date' => 'date|after:newer_than',
+            'after_date' => 'date|before:older_than',
+            'category' => 'exists:categories,name',
+            'source' => 'string'
+        ]);
+
+        $query = Article::query();
+        if ($request->has('older_than'))
+            $query->where('publishedAt', '<=', $request->get('before_date'));
+
+        if ($request->has('newer_than'))
+            $query->where('publishedAt', '>=', $request->get('after_date'));
+
+        if ($request->has('category'))
+            $query = Article::whereHas('category', function (Builder $query) use ($request) {
+                $query->where('name', '=', $request->get('category'));
+            });
+
+        if ($request->has('source'))
+            $query->where('publisher', '=', $request->get('source'));
+
+        return response()->json($query->paginate($request->get('per_page')));
+    }
+
+    public function detail(string $id)
+    {
+        return Article::with('category')->findOrFail($id);
+    }
 }
