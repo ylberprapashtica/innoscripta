@@ -8,19 +8,20 @@ class NewsFetcher
 {
     public function __construct(
         /** @var NewsFetcherInterface[] $newsFetchers */
-        private readonly iterable $newsFetchers
+        private iterable $newsFetchers
     )
     {
     }
 
-    public function fetchNews()
+    public function fetchNews(): mixed
     {
         $newsFetcherPromises = [];
         foreach ($this->newsFetchers as $newsFetcher) {
-            $newsFetcherPromises[] = $newsFetcher->fetchNewsAsync();
+            $newsFetcherPromises = array_merge($newsFetcherPromises, $newsFetcher->storeNewsAsync('syria'));
         }
 
-        $results = Promise\Utils::all($newsFetcherPromises)->wait();
+        $wait = Promise\Utils::all($newsFetcherPromises)->wait();
+        return $wait;
     }
 
 }

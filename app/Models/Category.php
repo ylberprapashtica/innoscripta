@@ -25,8 +25,10 @@ class Category extends Model
     const ENVIRONMENT = 'environment';
     const MISCELLANEOUS = 'miscellaneous';
     const TRAVEL = 'travel';
-
     const SCIENCE = 'science';
+    const ART = 'art';
+    const FOOD = 'food';
+
     private static array $categories = [];
     protected $fillable = [
         'name'

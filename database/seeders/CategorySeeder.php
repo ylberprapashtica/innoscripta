@@ -67,5 +67,13 @@ class CategorySeeder extends Seeder
         Category::factory()->create([
             'name' => Category::MISCELLANEOUS,
         ]);
+
+        Category::factory()->create([
+            'name' => Category::ART,
+        ]);
+
+        Category::factory()->create([
+            'name' => Category::FOOD,
+        ]);
     }
 }

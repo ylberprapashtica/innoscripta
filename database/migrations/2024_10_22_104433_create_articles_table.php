@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('author')->nullable();
             $table->string('title')->unique();
             $table->text('description')->nullable();
-            $table->string('url', 500);
-            $table->string('urlToImage', 500)->nullable();
+            $table->string('url', 750);
+            $table->string('urlToImage', 750)->nullable();
             $table->timestamp('publishedAt')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();

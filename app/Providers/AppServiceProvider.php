@@ -2,14 +2,15 @@
 
 namespace App\Providers;
 
-use App\NewsFetcher\BBCNewsFetcher;
-use App\NewsFetcher\NewsApiFetcher;
+use App\NewsFetcher\Implementations\BBCNewsFetcher;
+use App\NewsFetcher\Implementations\NewsApiFetcher;
+use App\NewsFetcher\Implementations\NewYorkTimesFetcher;
 use App\NewsFetcher\NewsFetcher;
-use App\NewsFetcher\NewYorkTimesFetcher;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register any application services.
@@ -17,16 +18,18 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->tag([BBCNewsFetcher::class, NewsApiFetcher::class, NewYorkTimesFetcher::class], 'news-fetchers');
-        $this->app->bind(NewsFetcher::class, function (Application $app) {
+        $this->app->singleton(NewsFetcher::class, function (Application $app) {
             return new NewsFetcher($app->tagged('news-fetchers'));
         });
     }
 
     /**
-     * Bootstrap any application services.
+     * Get the services provided by the provider.
+     *
+     * @return array<int, string>
      */
-    public function boot(): void
+    public function provides(): array
     {
-
+        return [NewsFetcher::class];
     }
 }

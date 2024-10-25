@@ -1,14 +1,16 @@
 <?php
 
-namespace App\NewsFetcher;
+namespace App\NewsFetcher\Implementations;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\NewsFetcher\ApiUrlGeneratorTrait;
 use App\NewsFetcher\Exceptions\ApiUrlIsNotValidUrlException;
 use App\NewsFetcher\Exceptions\EndpointIsNotRecognisedException;
 use App\NewsFetcher\Exceptions\NewsFetcherResponseIsAnError;
 use App\NewsFetcher\Exceptions\ParametersValidationFailException;
-use GuzzleHttp\Promise\PromiseInterface;
+use App\NewsFetcher\NewsFetcherInterface;
+use App\NewsFetcher\NewsFetcherQueryParameters;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -43,15 +45,16 @@ class BBCNewsFetcher implements NewsFetcherInterface
 
     /**
      * @throws ParametersValidationFailException
-     * @throws NewsFetcherResponseIsAnError
+     * @throws ConnectionException
      * @throws EndpointIsNotRecognisedException
      * @throws ApiUrlIsNotValidUrlException
      * @throws ValidationException
      */
-    public function fetchNews(): void
+    public function storeNewsAsync(string $term): array
     {
-        $response = Http::get($this->getQuery());
-        $this->handleResponse($response);
+        return [Http::async()->get($this->getQuery(new NewsFetcherQueryParameters($term)))->then(function ($response) {
+            $this->storePage($response);
+        })];
     }
 
     /**
@@ -60,7 +63,7 @@ class BBCNewsFetcher implements NewsFetcherInterface
      * @throws ApiUrlIsNotValidUrlException
      * @throws ValidationException
      */
-    public function getQuery(): string
+    public function getQuery(NewsFetcherQueryParameters $nfqp): string
     {
         return $this->createQuery('news', [
             'lang' => 'english'
@@ -70,7 +73,7 @@ class BBCNewsFetcher implements NewsFetcherInterface
     /**
      * @throws NewsFetcherResponseIsAnError
      */
-    public function handleResponse(Response $response): void
+    public function storePage(Response $response): int
     {
         if ($response->getStatusCode() === 200) {
             $articlesGrouped = json_decode($response->body());
@@ -94,20 +97,6 @@ class BBCNewsFetcher implements NewsFetcherInterface
         } else {
             throw new NewsFetcherResponseIsAnError($response->getStatusCode(), self::class);
         }
-    }
-
-    /**
-     * @throws ParametersValidationFailException
-     * @throws ConnectionException
-     * @throws EndpointIsNotRecognisedException
-     * @throws ApiUrlIsNotValidUrlException
-     * @throws ValidationException
-     */
-    public function fetchNewsAsync(): PromiseInterface
-    {
-        return Http::async()->get($this->getQuery())->then(function ($response) {
-            $this->handleResponse($response);
-        });
     }
 
     function getApiUrl(): string
