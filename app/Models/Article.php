@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\ArticleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Article extends Model
 {
-    /** @use HasFactory<\Database\Factories\ArticleFactory> */
+    /** @use HasFactory<ArticleFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -21,13 +22,12 @@ class Article extends Model
         'publishedAt',
         'content'
     ];
+    protected $casts = [
+        'publishedAt' => 'datetime',
+    ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-
-    protected $casts = [
-        'publishedAt' => 'datetime',
-    ];
 }
