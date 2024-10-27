@@ -13,7 +13,7 @@ class FetchNews extends Command
      *
      * @var string
      */
-    protected $signature = 'app:fetch-news';
+    protected $signature = 'app:fetch-news {term?}';
 
     /**
      * The console command description.
@@ -28,6 +28,18 @@ class FetchNews extends Command
      */
     public function handle(NewsFetcher $newsFetcher): void
     {
-        $newsFetcher->fetchNews();
+        $term = $this->argument('term');
+        if (empty($term)) {
+            $term = fake()->word();
+        }
+        $this->info("Fetching All News Articles with term '$term'");
+        $results = $newsFetcher->gatherAllPromises($term)->wait();
+        foreach ($results as $newsFetcherClass => $result) {
+            if ($result === null) {
+                $this->line($newsFetcherClass . ' articles stored successfully');
+            } else {
+                $this->error($newsFetcherClass . ' return with error ' . $result);
+            }
+        }
     }
 }

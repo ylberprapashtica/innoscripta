@@ -11,6 +11,7 @@ use App\NewsFetcher\Exceptions\NewsFetcherResponseIsAnError;
 use App\NewsFetcher\Exceptions\ParametersValidationFailException;
 use App\NewsFetcher\NewsFetcherInterface;
 use App\NewsFetcher\NewsFetcherQueryParameters;
+use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -52,8 +53,12 @@ class BBCNewsFetcher implements NewsFetcherInterface
      */
     public function storeNewsAsync(string $term): array
     {
-        return [Http::async()->get($this->getQuery(new NewsFetcherQueryParameters($term)))->then(function ($response) {
-            $this->storePage($response);
+        return [self::class => Http::async()->get($this->getQuery(new NewsFetcherQueryParameters($term)))->then(function ($response) {
+            try {
+                $this->storePage($response);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
         })];
     }
 
@@ -73,7 +78,7 @@ class BBCNewsFetcher implements NewsFetcherInterface
     /**
      * @throws NewsFetcherResponseIsAnError
      */
-    public function storePage(Response $response): int
+    public function storePage(Response $response): void
     {
         if ($response->getStatusCode() === 200) {
             $articlesGrouped = json_decode($response->body());

@@ -12,6 +12,7 @@ use App\NewsFetcher\Exceptions\ParametersValidationFailException;
 use App\NewsFetcher\NewsFetcherInterface;
 use App\NewsFetcher\NewsFetcherQueryParameters;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -105,8 +106,12 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
      */
     public function storeNewsAsync(string $term): array
     {
-        return [Http::async()->get($this->getQuery(NewsFetcherQueryParameters::create($term)))->then(function ($response) {
-            $this->storePage($response);
+        return [self::class => Http::async()->get($this->getQuery(NewsFetcherQueryParameters::create($term)))->then(function ($response) {
+            try {
+                $this->storePage($response);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
         })
         ];
     }
@@ -130,7 +135,7 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
      * Stores the articles of the page to databse
      * @throws NewsFetcherResponseIsAnError
      */
-    function storePage(Response $response): int
+    function storePage(Response $response): void
     {
         if ($response->getStatusCode() === 200) {
             $articles = json_decode($response->body());
@@ -141,7 +146,7 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
                     'title' => $article->abstract,
                     'description' => $article->snippet,
                     'url' => $article->web_url,
-                    'urlToImage' => $article->multimedia['0']->url,
+                    'urlToImage' => $this->getUrlToImage($article->multimedia),
                     'publishedAt' => Carbon::create($article->pub_date)->toDateTime(),
                     'content' => $article->lead_paragraph,
                     'category_id' => Category::getArticleId($this->category_mapping[$article->news_desk] ?? null)
@@ -159,6 +164,11 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
             $authors .= $author->firstname . ' ' . $author->lastname . ',';
         }
         return substr($authors, 0, -1);
+    }
+
+    private function getUrlToImage($multimedia): ?string
+    {
+        return (isset($multimedia['0']->url)) ? $multimedia['0']->url : null;
     }
 
     function getValidationRulesPerEndpoint(): array

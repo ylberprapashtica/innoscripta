@@ -11,6 +11,7 @@ use App\NewsFetcher\Exceptions\ParametersValidationFailException;
 use App\NewsFetcher\NewsFetcherInterface;
 use App\NewsFetcher\NewsFetcherQueryParameters;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -32,9 +33,12 @@ class NewsApiFetcher implements NewsFetcherInterface
      */
     public function storeNewsAsync(string $term): array
     {
-
-        return [Http::async()->get($this->getQuery(NewsFetcherQueryParameters::create($term)))->then(function ($response) {
-            $this->storePage($response);
+        return [self::class => Http::async()->get($this->getQuery(NewsFetcherQueryParameters::create($term)))->then(function ($response) {
+            try {
+                $this->storePage($response);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
         })];
     }
 
@@ -57,7 +61,7 @@ class NewsApiFetcher implements NewsFetcherInterface
     /**
      * @throws NewsFetcherResponseIsAnError
      */
-    function storePage(Response $response): int
+    function storePage(Response $response): void
     {
         if ($response->getStatusCode() === 200) {
             $articles = json_decode($response->body());

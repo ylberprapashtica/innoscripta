@@ -3,6 +3,7 @@
 namespace App\NewsFetcher;
 
 use GuzzleHttp\Promise;
+use GuzzleHttp\Promise\PromiseInterface;
 
 class NewsFetcher
 {
@@ -13,15 +14,22 @@ class NewsFetcher
     {
     }
 
-    public function fetchNews(): mixed
+    public function fetchNews(string $term): mixed
+    {
+        return $this->gatherAllPromises($term)->wait();
+    }
+
+    /**
+     * @return PromiseInterface
+     */
+    public function gatherAllPromises(string $term): PromiseInterface
     {
         $newsFetcherPromises = [];
         foreach ($this->newsFetchers as $newsFetcher) {
-            $newsFetcherPromises = array_merge($newsFetcherPromises, $newsFetcher->storeNewsAsync('syria'));
+            $newsFetcherPromises = array_merge($newsFetcherPromises, $newsFetcher->storeNewsAsync($term));
         }
 
-        $wait = Promise\Utils::all($newsFetcherPromises)->wait();
-        return $wait;
+        return Promise\Utils::all($newsFetcherPromises);
     }
 
 }

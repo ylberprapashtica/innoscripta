@@ -28,8 +28,6 @@ class Category extends Model
     const SCIENCE = 'science';
     const ART = 'art';
     const FOOD = 'food';
-
-    private static array $categories = [];
     protected $fillable = [
         'name'
     ];
@@ -42,15 +40,14 @@ class Category extends Model
 
     public static function getCategories()
     {
-        if (empty(self::$categories)) {
+        return once(function () {
             $simplifiedArray = [];
             foreach (self::query()->get() as $category) {
                 $simplifiedArray[$category->id] = $category->name;
             }
 
-            self::$categories = $simplifiedArray;
-        }
-        return self::$categories;
+            return $simplifiedArray;
+        });
     }
 
     public function articles(): HasMany
