@@ -1,0 +1,84 @@
+{
+    "status": "ok",
+    "totalResults": 6,
+    "articles": [
+        {
+            "source": {
+                "id": "wired",
+                "name": "Wired"
+            },
+            "author": "Wired",
+            "title": "NewAPI Article 1 - 9 Best Toiletry Bags, Tested and Reviewed (2024)",
+            "description": "Our team evaluated a ton of toiletry bags to find the best storage, organization, and design options for all your essentials.",
+            "url": "https://www.wired.com/gallery/best-toiletry-bags/",
+            "urlToImage": "https://media.wired.com/photos/671c0d509970daff36b14598/191:100/w_2580,c_limit/Toiletry-Bags-Reviewer-Collage-102024-SOURCE-Kat-Merck.jpg",
+            "publishedAt": "2024-10-28T15:02:00Z",
+            "content": "There were multiple great bags we tried whose features or designs just didn't add up to a place in the top spots above. However, everyone has something different they're looking for in a toiletry bag… [+2792 chars]"
+        },
+        {
+            "source": {
+                "id": "techradar",
+                "name": "TechRadar"
+            },
+            "author": "Dashiell Wood",
+            "title": "NewAPI Article 2 - The latest Marvel's Spider-Man 2 update adds a PS5 Pro mode with new ray-tracing features",
+            "description": "For your friendly neighborhood PS5 Pro",
+            "url": "https://www.techradar.com/gaming/the-latest-marvels-spider-man-2-update-adds-a-ps5-pro-mode-with-new-ray-tracing-features",
+            "urlToImage": "https://cdn.mos.cms.futurecdn.net/r6UYWQEHMtHNmtfbs8g6mD-1200-80.jpg",
+            "publishedAt": "2024-10-28T14:49:23Z",
+            "content": "If your spidey sense has been tingling lately, it might be because of a new surprise update released for Marvel’s Spider-Man 2. Version 1.004 is available now and introduces full PlayStation 5 Pro su… [+2332 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Jordan Valinsky",
+            "title": "NewAPI Article 3 - McDonald’s restaurants finally have a solution to its busted McFlurry machine problem",
+            "description": "A broken McDonald’s McFlurry machine, which is arguably one of life’s greatest nuisances, has finally been solved thanks to a court ruling.",
+            "url": "https://www.cnn.com/2024/10/28/food/mcdonalds-broken-mcflurry-solution/index.html",
+            "urlToImage": "https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1253669203.jpg?c=16x9&q=w_800,c_fill",
+            "publishedAt": "2024-10-28T14:38:24Z",
+            "content": "A broken McDonalds McFlurry machine, arguably one of lifes greatest nuisances, has finally been solved thanks to a court ruling.\r\nMcDonalds franchises havent been able to fix the soft serve ice cream… [+1685 chars]"
+        },
+        {
+            "source": {
+                "id": "cbs-news",
+                "name": "CBS News"
+            },
+            "author": "Kate Gibson",
+            "title": "NewAPI Article 4 - Robinhood launches contracts to wager on presidential election",
+            "description": "The trading platform is the latest to offering investors the option to bet on outcome of the November 5 presidential election.",
+            "url": "https://www.cbsnews.com/news/robinhood-presidential-election-betting-contracts-trump-kamala-harris/",
+            "urlToImage": "https://assets1.cbsnewsstatic.com/hub/i/2022/05/12/3c8ff52d-30eb-49dc-9535-8f65c8ad0659/download.jpg",
+            "publishedAt": "2024-10-28T14:37:01+00:00",
+            "content": "Robinhood on Monday said traders can begin using its platform to bet on the U.S. presidential election that is just over a week away.\r\nInvestors using Robinhood have the opportunity to make money by … [+1580 chars]"
+        },
+        {
+            "source": {
+                "id": "la-repubblica",
+                "name": "La Repubblica"
+            },
+            "author": "La Repubblica",
+            "title": "NewAPI Article 5 - Elezioni regionali in Liguria, primi exit poll Opinio-Rai: Bucci 47-51% Orlando 45,5-49,5%. E’ testa a testa",
+            "description": "I liguri sono chiamati alle urne un anno prima della naturale scadenza del mandato di Giovanni Toti, dimessosi la scorsa estate dopo essere stato travolto dall…",
+            "url": "https://genova.repubblica.it/cronaca/2024/10/28/diretta/risultati_elezioni_regionali_liguria_presidente-423581308/",
+            "urlToImage": "https://www.repstatic.it/content/localirep/img/rep-genova/2024/10/28/104857518-e7176bc5-4194-4eac-8cc0-406c5c2cc3e8.jpg",
+            "publishedAt": "2024-10-28T14:05:05Z",
+            "content": "Il calo dellaffluenza è decisamente più marcato nelle province di Imperia e Savona. La ragione, in questultimo caso, è in parte da attribuire all'ondata di maltempo abbattutasi sull'entroterra, in Va… [+436 chars]"
+        },
+        {
+            "source": {
+                "id": "la-repubblica",
+                "name": "La Repubblica"
+            },
+            "author": "La Repubblica",
+            "title": "NewAPI Article 5 - Elezioni regionali in Liguria, primi exit poll Opinio-Rai: Bucci 47-51% Orlando 45,5-49,5%. E’ testa a testa",
+            "description": "I liguri sono chiamati alle urne un anno prima della naturale scadenza del mandato di Giovanni Toti, dimessosi la scorsa estate dopo essere stato travolto dall…",
+            "url": "https://genova.repubblica.it/cronaca/2024/10/28/diretta/risultati_elezioni_regionali_liguria_presidente-423581308/",
+            "urlToImage": "https://www.repstatic.it/content/localirep/img/rep-genova/2024/10/28/104857518-e7176bc5-4194-4eac-8cc0-406c5c2cc3e8.jpg",
+            "publishedAt": "2024-10-28T14:05:05Z",
+            "content": "Il calo dellaffluenza è decisamente più marcato nelle province di Imperia e Savona. La ragione, in questultimo caso, è in parte da attribuire all'ondata di maltempo abbattutasi sull'entroterra, in Va… [+436 chars]"
+        }
+    ]
+}

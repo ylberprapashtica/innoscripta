@@ -12,6 +12,7 @@ use App\NewsFetcher\Exceptions\ParametersValidationFailException;
 use App\NewsFetcher\NewsFetcherInterface;
 use App\NewsFetcher\NewsFetcherQueryParameters;
 use Exception;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -53,13 +54,14 @@ class BBCNewsFetcher implements NewsFetcherInterface
      */
     public function storeNewsAsync(string $term): array
     {
-        return [self::class => Http::async()->get($this->getQuery(new NewsFetcherQueryParameters($term)))->then(function ($response) {
-            try {
-                $this->storePage($response);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        })];
+        $promise = $this->makeRequest(new NewsFetcherQueryParameters($term));
+        return [self::class => $this->setStoreNewsAsyncPromiseHandler($promise)];
+    }
+
+    public function makeRequest(NewsFetcherQueryParameters $nfqp): PromiseInterface
+    {
+        $query = $this->getQuery($nfqp);
+        return Http::async()->get($query);
     }
 
     /**
@@ -73,6 +75,17 @@ class BBCNewsFetcher implements NewsFetcherInterface
         return $this->createQuery('news', [
             'lang' => 'english'
         ]);
+    }
+
+    private function setStoreNewsAsyncPromiseHandler(PromiseInterface $promise): PromiseInterface
+    {
+        return $promise->then(function ($response) {
+            try {
+                $this->storePage($response);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        });
     }
 
     /**

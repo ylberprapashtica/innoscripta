@@ -58,6 +58,6 @@ trait UserTestCases
     {
         $user = $this->createUser($name);
         UserPreference::factory()->create(['user_id' => $user->id]);
-        return $user;
+        return $user->load('preference');
     }
 }

@@ -2,12 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\Article;
 use App\Models\Category;
 use App\Models\UserPreference;
 use Carbon\Carbon;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
+use PHPUnit\Framework\Attributes\Test;
 use Random\RandomException;
 use Tests\TestCase;
 use Tests\TestCases\ArticleUseCases;
@@ -19,7 +21,7 @@ class ArticleControllerTest extends TestCase
     use UserTestCases;
     use ArticleUseCases;
 
-    /** @test */
+    #[Test]
     public function itCanListArticles()
     {
         $this->seed(CategorySeeder::class);
@@ -40,9 +42,9 @@ class ArticleControllerTest extends TestCase
     }
 
     /**
-     * @test
      * @throws RandomException
      */
+    #[Test]
     public function itCanListArticlesFilteredByDate(): void
     {
         $this->seed(CategorySeeder::class);
@@ -74,22 +76,22 @@ class ArticleControllerTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function itCanGetOneArticle()
     {
         Category::factory()->create();
 
-        $this->createArticles(['title' => 'test']);
-        $response = $this->actingAsUser()->get('/api/articles/1');
+        $article = Article::factory()->create(['title' => 'test']);
+        $response = $this->actingAsUser()->get('/api/articles/' . $article->id);
 
         $response->assertStatus(200);
         $response->assertJson(fn(AssertableJson $json) => $json
-            ->where('title', 'test-0')
+            ->where('title', 'test')
             ->etc()
         );
     }
 
-    /** @test */
+    #[Test]
     public function itCanGetNewsFeed()
     {
         $preferences = [

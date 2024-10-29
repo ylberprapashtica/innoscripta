@@ -1,0 +1,45 @@
+{
+    "status": 200,
+    "Latest": [
+        {
+            "title": "BBC Article 1 - California Wildfires Cause Widespread Damage",
+            "summary": "Massive wildfires have swept through California, destroying homes and displacing thousands.",
+            "image_link": "https://example.com/images/california_wildfire.jpg",
+            "news_link": "https://news.example.com/articles/california-wildfires"
+        },
+        {
+            "title": "BBC Article 2 - New Study Links Diet to Heart Health",
+            "summary": "A recent study reveals that a balanced diet significantly reduces the risk of heart disease.",
+            "image_link": "https://example.com/images/diet_study.jpg",
+            "news_link": "https://news.example.com/articles/heart-health-diet"
+        },
+        {
+            "title": "BBC Article 3 - Protecting Thailand's famous 'paradise beach'",
+            "summary": "Lucy Hedges is in Thailand where she explores the beach made world-famous by Hollywood.",
+            "image_link": "https://ichef.bbci.co.uk/images/ic/160x90/p0jf5r49.jpg.webp",
+            "news_link": "https://bbc.com/reel/video/p0jf5mnt/protecting-thailand-s-famous-paradise-beach-"
+        }
+    ],
+    "Travel": [
+        {
+            "title": "BBC Article 4 - Bulgaria's valley of Thracian Kings and Damask roses",
+            "summary": null,
+            "image_link": null,
+            "news_link": "https://bbc.com/reel/video/p0jq87w8/bulgaria-s-valley-of-thracian-kings-and-damask-roses"
+        },
+        {
+            "title": "BBC Article 5 - The Bahamas: The last lighthouse of its kind",
+            "summary": null,
+            "image_link": null,
+            "news_link": "https://bbc.com/reel/video/p0jjvhjy/the-bahamas-the-last-lighthouse-of-its-kind"
+        },
+        {
+            "title": "BBC Article 3 - Protecting Thailand's famous 'paradise beach'",
+            "summary": "Lucy Hedges is in Thailand where she explores the beach made world-famous by Hollywood.",
+            "image_link": "https://ichef.bbci.co.uk/images/ic/160x90/p0jf5r49.jpg.webp",
+            "news_link": "https://bbc.com/reel/video/p0jf5mnt/protecting-thailand-s-famous-paradise-beach-"
+        }
+    ],
+    "elapsed time": "1.144s",
+    "timestamp": 1730214473
+}

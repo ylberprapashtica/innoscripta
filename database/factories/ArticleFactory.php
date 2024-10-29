@@ -27,7 +27,7 @@ class ArticleFactory extends Factory
             'urlToImage' => fake()->imageUrl(),
             'publishedAt' => fake()->date(),
             'content' => fake()->realText(2000),
-            'category_id' => fake()->numberBetween(1, Category::count())
+            'category_id' => Category::inRandomOrder()->first()->id
         ];
     }
 }

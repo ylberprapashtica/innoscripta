@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Tests\TestCases\UserTestCases;
 
@@ -11,8 +12,8 @@ class AuthControllerTest extends TestCase
     use RefreshDatabase;
     use UserTestCases;
 
-    /** @test */
-    public function user_can_register()
+    #[Test]
+    public function userCanRegister(): void
     {
         $userData = [
             'name' => 'Test User',
@@ -27,8 +28,8 @@ class AuthControllerTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => 'user@example.com']);
     }
 
-    /** @test */
-    public function user_can_login()
+    #[Test]
+    public function userCanLogin(): void
     {
         $userModel = $this->createUser('user');
 

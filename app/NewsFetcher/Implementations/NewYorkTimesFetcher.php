@@ -12,7 +12,7 @@ use App\NewsFetcher\Exceptions\ParametersValidationFailException;
 use App\NewsFetcher\NewsFetcherInterface;
 use App\NewsFetcher\NewsFetcherQueryParameters;
 use Carbon\Carbon;
-use Exception;
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -97,7 +97,6 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
     ];
 
     /**
-     * @param string $term
      * @throws ParametersValidationFailException
      * @throws ConnectionException
      * @throws EndpointIsNotRecognisedException
@@ -106,14 +105,21 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
      */
     public function storeNewsAsync(string $term): array
     {
-        return [self::class => Http::async()->get($this->getQuery(NewsFetcherQueryParameters::create($term)))->then(function ($response) {
-            try {
-                $this->storePage($response);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        })
-        ];
+        $promise = $this->makeRequest(new NewsFetcherQueryParameters($term));
+        return [self::class => $this->setStoreNewsAsyncPromiseHandler($promise)];
+    }
+
+    /**
+     * @throws ParametersValidationFailException
+     * @throws ConnectionException
+     * @throws EndpointIsNotRecognisedException
+     * @throws ApiUrlIsNotValidUrlException
+     * @throws ValidationException
+     */
+    public function makeRequest(NewsFetcherQueryParameters $nfqp): PromiseInterface
+    {
+        $query = $this->getQuery($nfqp);
+        return Http::async()->get($query);
     }
 
     /**
@@ -129,6 +135,17 @@ class NewYorkTimesFetcher implements NewsFetcherInterface
             'api-key' => env('NEW_YORK_TIMES_API_KEY'),
             'q' => $nfqp->getTerm(),
         ]);
+    }
+
+    private function setStoreNewsAsyncPromiseHandler(PromiseInterface $promise): PromiseInterface
+    {
+        return $promise->then(function ($response) {
+            try {
+                $this->storePage($response);
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+        });
     }
 
     /**
