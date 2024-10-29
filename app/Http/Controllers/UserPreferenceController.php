@@ -23,7 +23,7 @@ class UserPreferenceController extends Controller
      */
     public function index()
     {
-        return UserPreference::all();
+        return response()->json(UserPreference::paginate());
     }
 
     /**
@@ -37,9 +37,7 @@ class UserPreferenceController extends Controller
             ['user_id' => 'User has already set the initial preferences.']
         );
 
-        $userPreference = new UserPreference($validated);
-
-        $userPreference->save();
+        UserPreference::create($validated);
 
         return new ApiResponse('Ok');
     }

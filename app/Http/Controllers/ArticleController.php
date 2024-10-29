@@ -16,18 +16,18 @@ class ArticleController extends Controller
             'page' => 'required|int',
             'per_page' => 'required|int',
             'keyword' => 'string',
-            'before_date' => 'date|after:newer_than',
-            'after_date' => 'date|before:older_than',
+            'older_than' => 'date|before:newer_than',
+            'newer_than' => 'date|after:older_than',
             'category' => 'exists:categories,name',
             'source' => 'string'
         ]);
 
         $query = Article::query();
         if ($request->has('older_than'))
-            $query->where('publishedAt', '<=', $request->get('before_date'));
+            $query->where('publishedAt', '>=', $request->get('older_than'));
 
         if ($request->has('newer_than'))
-            $query->where('publishedAt', '>=', $request->get('after_date'));
+            $query->where('publishedAt', '<=', $request->get('newer_than'));
 
         if ($request->has('category'))
             $query = Article::whereHas('category', function (Builder $query) use ($request) {
@@ -68,7 +68,7 @@ class ArticleController extends Controller
         if (!empty(Auth::user()->preference->authors))
             $query->orWhere(function (Builder $query) {
                 foreach (Auth::user()->preference->authors as $author) {
-                    $query->orWhere('author', 'LIKE', $author);
+                    $query->orWhere('author', 'LIKE', '%' . $author . '%');
                 }
             });
 

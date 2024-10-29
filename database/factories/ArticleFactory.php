@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
+ * @extends Factory<Article>
  */
 class ArticleFactory extends Factory
 {
@@ -27,8 +27,7 @@ class ArticleFactory extends Factory
             'urlToImage' => fake()->imageUrl(),
             'publishedAt' => fake()->date(),
             'content' => fake()->realText(2000),
-            //Number of categories
-            'category_id' => fake()->numberBetween(1, 12)
+            'category_id' => fake()->numberBetween(1, Category::count())
         ];
     }
 }
