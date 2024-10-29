@@ -1,0 +1,768 @@
+{
+	"info": {
+		"_postman_id": "dbd3bf19-d790-4eae-a348-bf669c274b73",
+		"name": "Innoscripta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4717990"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "beli",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "tomi@innoscripta.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"8aeed26655f158ae95736455e196cff0c8219a26875a16bc6644f0dd916f5e31\",\n    \"email\": \"ylberprapashtica@gmail.com\",\n    \"password\": \"1234567890\",\n    \"password_confirmation\": \"1234567890\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/password/reset",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/logout?Accept=application/json&X-XSRF-TOKEN={{x-xsrf-cookie}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "Accept",
+									"value": "application/json"
+								},
+								{
+									"key": "X-XSRF-TOKEN",
+									"value": "{{x-xsrf-cookie}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/user?Accept=application/json&X-XSRF-TOKEN={{x-xsrf-cookie}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							],
+							"query": [
+								{
+									"key": "Accept",
+									"value": "application/json"
+								},
+								{
+									"key": "X-XSRF-TOKEN",
+									"value": "{{x-xsrf-cookie}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send reset link email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ylberprapashtica@gmail.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/password/email",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"password",
+								"email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NewsApi",
+			"item": [
+				{
+					"name": "New Api",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "11b755014f8740ed92f64f62ca368f09",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://bbc-api.vercel.app/news?lang=english",
+							"protocol": "https",
+							"host": [
+								"bbc-api",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "english"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Api Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "11b755014f8740ed92f64f62ca368f09",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://newsapi.org/v2/everything?apiKey=11b755014f8740ed92f64f62ca368f09&q=trump\n",
+							"protocol": "https",
+							"host": [
+								"newsapi",
+								"org"
+							],
+							"path": [
+								"v2",
+								"everything"
+							],
+							"query": [
+								{
+									"key": "apiKey",
+									"value": "11b755014f8740ed92f64f62ca368f09"
+								},
+								{
+									"key": "q",
+									"value": "trump\n"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "app",
+			"item": [
+				{
+					"name": "Get Articles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/articles?page=1&per_page=10&newer_than=2024-10-25&older_than=2024-10-23",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "category",
+									"value": "miscellaneous",
+									"disabled": true
+								},
+								{
+									"key": "newer_than",
+									"value": "2024-10-25"
+								},
+								{
+									"key": "older_than",
+									"value": "2024-10-23"
+								},
+								{
+									"key": "source",
+									"value": "BBC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Feed",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/news-feed?page=1&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"news-feed"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								},
+								{
+									"key": "category",
+									"value": "miscellaneous",
+									"disabled": true
+								},
+								{
+									"key": "source",
+									"value": "BBC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one article",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/articles/40",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"articles",
+								"40"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "PHPSTROM",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "miscellaneous",
+									"disabled": true
+								},
+								{
+									"key": "source",
+									"value": "BBC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Preference",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-Token",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"publisher\": \"BBC\",\n    \"categories\": [\n        \"war\",\n        \"travel\"\n    ],\n    \"authors\" : [\n        \"Kathrine Newman\",\n        \"Joe Mama\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/my-user-preference",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"my-user-preference"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserPreference",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/user-preference",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user-preference"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "PHPSTROM",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-Token",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"publisher\": \"BBC\",\n    \"categories\": [\n        \"war\"\n    ],\n    \"authors\" : [\n        \"Kathrine Newman\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user-preference?XDEBUG_SESSION_START=PHPSTORM",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user-preference"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "PHPSTORM"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-Token",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"publisher\": \"BBC\",\n    \"categories\": [\n        \"war\",\n        \"travel\",\n        \"bussines\"\n    ],\n    \"authors\" : [\n        \"Joe Mama\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user-preference/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user-preference",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{url}}",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-Token",
+								"value": "{{x-xsrf-cookie}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user-preference/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user-preference",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.sendRequest({",
+					"     url: pm.environment.get(\"url\") + '/sanctum/csrf-cookie',",
+					"     method: 'GET'",
+					" }, function(error, response, {cookies}) {",
+					"     if(!error){",
+					"         pm.environment.set('x-xsrf-cookie', cookies.get('XSRF-TOKEN').slice(0,-1))",
+					"     }    ",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
